@@ -8,6 +8,7 @@ public class HhPlusW02CleanArchitectureApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(HhPlusW02CleanArchitectureApplication.class, args);
+    System.out.println("hello World!");
   }
 
 }
