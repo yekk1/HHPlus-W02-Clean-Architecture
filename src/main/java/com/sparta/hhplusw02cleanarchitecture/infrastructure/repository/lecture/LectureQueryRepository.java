@@ -47,4 +47,33 @@ public class LectureQueryRepository {
         .where(lectureItem.date.eq(date))
         .fetch();
   }
+
+  /**
+   * 특정 userId 로 신청 완료된 특강 목록을 조회하는 쿼리
+   * @param userId: 조회할 userId
+   * @return 신청 완료된 특강 목록
+   */
+  public List<LectureInfo> findLectureInfosByUserId(Long userId) {
+    QLectureEntity lecture = QLectureEntity.lectureEntity;
+    QLectureItemEntity lectureItem = QLectureItemEntity.lectureItemEntity;
+    QLectureInventoryEntity lectureInventory = QLectureInventoryEntity.lectureInventoryEntity;
+    QLectureHistoryEntity lectureHistory = QLectureHistoryEntity.lectureHistoryEntity;
+
+    return queryFactory.select(new QLectureInfo(
+            lecture.id,
+            lectureItem.id,
+            lecture.title,
+            lecture.instructor,
+            lectureItem.date,
+            lectureItem.capacity,
+            lectureInventory.amount
+        ))
+        .from(lecture)
+        .join(lectureItem).on(lecture.id.eq(lectureItem.id))
+        .join(lectureInventory).on(lectureItem.id.eq(lectureInventory.id))
+        .join(lectureHistory).on(lectureItem.id.eq(lectureHistory.id))
+        .where(lectureHistory.id.eq(userId))
+        .fetch();
+  }
+
 }
