@@ -31,7 +31,7 @@ public class LectureItemEntity {
   @Column(nullable = false)
   private Long lecture_id;
 
-  private LocalDate Date;
+  private LocalDate date;
 
   @Column(nullable = false)
   private Integer capacity;
