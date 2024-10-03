@@ -1,12 +1,12 @@
-package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture;
+package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.QLectureInfo;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.QLectureEntity;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.QLectureHistoryEntity;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.QLectureInventoryEntity;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.QLectureItemEntity;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureEntity;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureHistoryEntity;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureInventoryEntity;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureItemEntity;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

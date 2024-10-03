@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture.LectureQueryRepository;
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

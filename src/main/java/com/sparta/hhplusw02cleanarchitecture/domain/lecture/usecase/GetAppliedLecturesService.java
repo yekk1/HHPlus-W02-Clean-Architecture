@@ -1,9 +1,7 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
-import com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase.GetLectureItemsService.Input;
-import com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase.GetLectureItemsService.Output;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture.LectureQueryRepository;
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;

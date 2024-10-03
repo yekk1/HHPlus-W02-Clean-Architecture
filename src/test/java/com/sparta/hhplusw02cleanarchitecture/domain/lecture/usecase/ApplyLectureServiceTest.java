@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureHistoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureInventoryEntity;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture.LectureQueryRepository;
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureHistory.LectureHistoryRepositoryJpaImpl;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureInventory.LectureInventoryRepositoryJpaImpl;
 import java.time.LocalDateTime;

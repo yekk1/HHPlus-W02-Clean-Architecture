@@ -2,7 +2,7 @@ package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureHistoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureInventoryEntity;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture.LectureQueryRepository;
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureHistory.LectureHistoryRepositoryJpaImpl;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureInventory.LectureInventoryRepositoryJpaImpl;
 import jakarta.transaction.Transactional;

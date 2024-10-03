@@ -1,10 +1,7 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture.LectureQueryRepository;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lecture.LectureRepositoryJpaImpl;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureInventory.LectureInventoryRepositoryJpaImpl;
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureItem.LectureItemRepositoryJpaImpl;
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
