@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 public class LectureInventoryEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "inventory_id")
   private Long id;
 
   @Column(nullable = false)

@@ -1,6 +1,5 @@
 package com.sparta.hhplusw02cleanarchitecture.infrastructure.entity;
 
-import com.sparta.hhplusw02cleanarchitecture.domain.common.TimeBaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class LectureEntity extends TimeBaseEntity {
+public class LectureEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "lecture_id")

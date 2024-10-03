@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 public class LectureHistoryEntity extends TimeBaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "history_id")
   private Long id;
 
   @Column(nullable = false)

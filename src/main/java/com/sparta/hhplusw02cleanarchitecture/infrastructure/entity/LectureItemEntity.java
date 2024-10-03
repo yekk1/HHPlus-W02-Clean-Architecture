@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  * 특강 목록 엔티티
  */
 @Entity
-@Table(name = "LETURE_ITEM")
+@Table(name = "LECTURE_ITEM")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
