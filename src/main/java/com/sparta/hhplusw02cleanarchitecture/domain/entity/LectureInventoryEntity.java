@@ -1,4 +1,4 @@
-package com.sparta.hhplusw02cleanarchitecture.infrastructure.entity;
+package com.sparta.hhplusw02cleanarchitecture.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 public class LectureInventoryEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "inventory_id")
   private Long id;
 
   @Column(nullable = false)

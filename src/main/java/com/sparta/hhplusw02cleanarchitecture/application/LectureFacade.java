@@ -1,9 +1,9 @@
 package com.sparta.hhplusw02cleanarchitecture.application;
 
 import com.sparta.hhplusw02cleanarchitecture.common.InputValidator;
-import com.sparta.hhplusw02cleanarchitecture.domain.lecture.ApplyLectureService;
-import com.sparta.hhplusw02cleanarchitecture.domain.lecture.GetAppliedLecturesService;
-import com.sparta.hhplusw02cleanarchitecture.domain.lecture.GetLectureItemsService;
+import com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase.ApplyLectureService;
+import com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase.GetAppliedLecturesService;
+import com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase.GetLectureItemsService;
 import org.springframework.stereotype.Component;
 
 /**

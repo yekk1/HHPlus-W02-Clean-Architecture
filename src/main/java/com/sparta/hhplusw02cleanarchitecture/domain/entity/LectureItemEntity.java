@@ -1,4 +1,4 @@
-package com.sparta.hhplusw02cleanarchitecture.infrastructure.entity;
+package com.sparta.hhplusw02cleanarchitecture.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  * 특강 목록 엔티티
  */
 @Entity
-@Table(name = "LETURE_ITEM")
+@Table(name = "LECTURE_ITEM")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,7 +31,7 @@ public class LectureItemEntity {
   @Column(nullable = false)
   private Long lecture_id;
 
-  private LocalDate Date;
+  private LocalDate date;
 
   @Column(nullable = false)
   private Integer capacity;
