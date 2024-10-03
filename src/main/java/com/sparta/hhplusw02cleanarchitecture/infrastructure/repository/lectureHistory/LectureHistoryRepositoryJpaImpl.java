@@ -1,5 +1,6 @@
 package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureHistory;
 
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.LectureHistoryEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,9 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class LectureHistoryRepositoryJpaImpl implements LectureHistoryRepository{
   private final LectureHistoryJpaRepository lectureHistoryRepository;
+
+  @Override
+  public LectureHistoryEntity saveHistory(LectureHistoryEntity lectureHistory) {
+    return lectureHistoryRepository.save(lectureHistory);
+  }
 }

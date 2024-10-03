@@ -1,6 +1,7 @@
 package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureHistory;
 
 
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.LectureHistoryEntity;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LectureHistoryRepository{
-
+  LectureHistoryEntity saveHistory(LectureHistoryEntity lectureHistory);
 }

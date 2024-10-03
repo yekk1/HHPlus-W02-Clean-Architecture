@@ -76,4 +76,18 @@ public class LectureQueryRepository {
         .fetch();
   }
 
+  /**
+   * 특강 여석을 조회하는 쿼리
+   * @param inventoryId: 조회할 특강여석 id
+   * @return 특강 여석 갯수
+   */
+  public Integer findLectureInfosByInventoryId(Long inventoryId) {
+    QLectureInventoryEntity lectureInventory = QLectureInventoryEntity.lectureInventoryEntity;
+
+    return queryFactory.select(lectureInventory.amount)
+        .from(lectureInventory)
+        .where(lectureInventory.id.eq(inventoryId))
+        .fetchOne();
+  }
+
 }

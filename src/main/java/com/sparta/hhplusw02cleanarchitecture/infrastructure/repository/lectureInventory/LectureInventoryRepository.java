@@ -1,5 +1,7 @@
 package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureInventory;
 
+
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.LectureInventoryEntity;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -7,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LectureInventoryRepository {
-
+  LectureInventoryEntity updateAmount(LectureInventoryEntity lectureInventoryEntity);
 }
