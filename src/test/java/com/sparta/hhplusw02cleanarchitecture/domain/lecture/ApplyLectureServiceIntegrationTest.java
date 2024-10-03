@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureInventoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase.ApplyLectureService;
+import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureHistory.LectureHistoryRepositoryJpaImpl;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureInventory.LectureInventoryRepositoryJpaImpl;
 import java.util.concurrent.ExecutorService;
@@ -26,7 +27,6 @@ public class ApplyLectureServiceIntegrationTest {
 
   @Autowired
   private LectureInventoryRepositoryJpaImpl lectureInventoryRepository;
-
 
   @Autowired
   private LectureHistoryRepositoryJpaImpl lectureHistoryRepository;
@@ -72,4 +72,43 @@ public class ApplyLectureServiceIntegrationTest {
     assertThat(updatedInventory.getAmount()).isEqualTo(0); // 여석이 0이어야 함
     assertThat(lectureHistoryRepository.count()).isEqualTo(initialAmount); // 성공한 신청 수는 초기 여석 수와 같아야 함
   }
+  @Test
+  @DisplayName("동일한 유저 정보로 같은 특강을 1번만 신청할 수 있다.")
+  public void alreadyAppliedLectureWithSameUserId_Then_Fail() throws InterruptedException {
+    //given
+    Long userId = 1L;       // 테스트할 유저 ID
+    Long lectureId = 1L;    // 테스트할 강의 ID
+    Long itemId = 1L;       // 테스트할 강의 목록 ID
+    Long inventoryId = 1L;  // 테스트할 여석 ID
+    Integer initialAmount = 30;
+
+    int numberOfApplications = 5; //신청횟수
+    CountDownLatch latch = new CountDownLatch(numberOfApplications);
+
+    for (int i = 0; i < numberOfApplications; i++) {
+      ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+          .userId(userId)
+          .lectureId(lectureId)
+          .itemId(itemId)
+          .inventoryId(inventoryId)
+          .build();
+      try {
+        applyLectureService.applyLecture(input);
+      } catch (IllegalStateException e) {
+        System.err.println("특강 신청이 마감되었습니다.");
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        latch.countDown();
+      }
+    }
+
+    latch.await(10, TimeUnit.SECONDS);
+
+    LectureInventoryEntity updatedInventory = lectureInventoryRepository.findById(inventoryId);
+    assertThat(updatedInventory.getAmount()).isEqualTo(initialAmount - 1); // 여석이 0이어야 함 // 여석이 한 자리만 줄었어야 함.
+
+    assertThat(lectureHistoryRepository.count()).isEqualTo(1); //성공한 신청 수는 한번 뿐이어야 함
+  }
+
 }
