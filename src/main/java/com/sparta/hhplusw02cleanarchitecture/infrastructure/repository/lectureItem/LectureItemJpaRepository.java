@@ -1,6 +1,6 @@
 package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureItem;
 
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.LectureItemEntity;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

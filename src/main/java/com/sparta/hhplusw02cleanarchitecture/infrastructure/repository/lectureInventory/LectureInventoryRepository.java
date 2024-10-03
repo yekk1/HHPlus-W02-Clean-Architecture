@@ -1,7 +1,7 @@
 package com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.lectureInventory;
 
 
-import com.sparta.hhplusw02cleanarchitecture.infrastructure.entity.LectureInventoryEntity;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureInventoryEntity;
 import org.springframework.stereotype.Repository;
 
 /**

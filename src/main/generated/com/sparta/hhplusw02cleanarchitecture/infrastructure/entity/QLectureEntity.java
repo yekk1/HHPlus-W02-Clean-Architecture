@@ -5,6 +5,7 @@ import static com.querydsl.core.types.PathMetadataFactory.*;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
+import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureEntity;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
 

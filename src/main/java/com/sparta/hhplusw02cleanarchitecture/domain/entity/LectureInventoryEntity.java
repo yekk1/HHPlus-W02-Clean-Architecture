@@ -1,4 +1,4 @@
-package com.sparta.hhplusw02cleanarchitecture.infrastructure.entity;
+package com.sparta.hhplusw02cleanarchitecture.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

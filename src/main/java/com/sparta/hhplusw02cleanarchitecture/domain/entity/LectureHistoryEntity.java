@@ -1,12 +1,13 @@
-package com.sparta.hhplusw02cleanarchitecture.infrastructure.entity;
+package com.sparta.hhplusw02cleanarchitecture.domain.entity;
 
+import com.sparta.hhplusw02cleanarchitecture.domain.common.TimeBaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,26 +15,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * 특강 목록 엔티티
+ * 특강 신청 내역 엔티티
  */
 @Entity
-@Table(name = "LECTURE_ITEM")
+@Table(name = "LECTURE_HISTORY")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class LectureItemEntity {
+public class LectureHistoryEntity extends TimeBaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "item_id")
+  @Column(name = "history_id")
   private Long id;
+
+  @Column(nullable = false)
+  private Long user_id;
 
   @Column(nullable = false)
   private Long lecture_id;
 
-  private LocalDate date;
+  @Column(nullable = false)
+  private Long item_id;
 
   @Column(nullable = false)
-  private Integer capacity;
+  private LocalDateTime applied_at;
 
 }
