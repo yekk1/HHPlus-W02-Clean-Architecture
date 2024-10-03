@@ -16,4 +16,8 @@ public class LectureHistoryRepositoryJpaImpl implements LectureHistoryRepository
   public LectureHistoryEntity saveHistory(LectureHistoryEntity lectureHistory) {
     return lectureHistoryRepository.save(lectureHistory);
   }
+
+  public long count() {
+    return lectureHistoryRepository.count();
+  }
 }
