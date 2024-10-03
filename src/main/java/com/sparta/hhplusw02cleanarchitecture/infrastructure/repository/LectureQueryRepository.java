@@ -7,6 +7,7 @@ import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureHistoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureInventoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.QLectureItemEntity;
+import jakarta.persistence.LockModeType;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -87,6 +88,7 @@ public class LectureQueryRepository {
     return queryFactory.select(lectureInventory.amount)
         .from(lectureInventory)
         .where(lectureInventory.id.eq(inventoryId))
+        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
         .fetchOne();
   }
 
