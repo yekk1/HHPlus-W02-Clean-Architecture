@@ -89,7 +89,7 @@ public class LectureQueryRepository {
     return queryFactory.select(lectureInventory.amount)
         .from(lectureInventory)
         .where(lectureInventory.id.eq(inventoryId))
-        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+        .setLockMode(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
         .fetchOne();
   }
 
@@ -101,12 +101,14 @@ public class LectureQueryRepository {
    */
   public boolean getByUserIdAndLectureId(Long userId, Long itemId) {
     QLectureHistoryEntity lectureHistory = QLectureHistoryEntity.lectureHistoryEntity;
+
     BooleanExpression predicate = lectureHistory.user_id.eq(userId)
         .and(lectureHistory.lecture_id.eq(itemId));
 
     return queryFactory.selectOne()
         .from(lectureHistory)
         .where(predicate)
+        .setLockMode(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
         .fetchFirst() != null;
   }
 }

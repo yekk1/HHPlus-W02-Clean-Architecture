@@ -77,27 +77,30 @@ public class ApplyLectureService {
   @Transactional
   public Output applyLecture(Input input) {
 
-    // 1. 중복 신청 확인
-    if (lectureQueryRepository.getByUserIdAndLectureId(input.getUserId(), input.getItemId())) {
-      throw new IllegalStateException("이미 신청한 특강입니다.");
-    }
+    LectureHistoryEntity lectureHistory;
+    LectureInventoryEntity lectureInventory;
 
-    // 2. 잔여 좌석 확인 및 업데이트
+    // 1. 잔여 좌석 확인 및 업데이트
     input.setAmount(
         lectureQueryRepository.findLectureInfosByInventoryId(input.getInventoryId())
     );
     input.enroll();
 
+    // 2. 중복 신청 확인
+    if (lectureQueryRepository.getByUserIdAndLectureId(input.getUserId(),
+        input.getItemId())) {
+      throw new IllegalStateException("이미 신청한 특강입니다.");
+    }
+
     // 3. 잔여 좌석 테이블에 업데이트
-    LectureInventoryEntity lectureInventory = lectureInventoryRepository.updateAmount(
+    lectureInventory = lectureInventoryRepository.updateAmount(
         input.toInventoryEntity()
     );
 
     // 4. 등록 내역 저장
-    LectureHistoryEntity lectureHistory = lectureHistoryRepository.saveHistory(
+    lectureHistory = lectureHistoryRepository.saveHistory(
         input.toHistoryEntity()
     );
-
     // 5. 결과 반환
     return Output.builder()
         .inventoryId(lectureInventory.getId())
