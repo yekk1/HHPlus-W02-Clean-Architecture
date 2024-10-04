@@ -38,8 +38,7 @@ class GetLectureItemsServiceTest {
         );
     when(lectureQueryRepository.findLectureInfosByDate(date)).thenReturn(lectureInfos);
 
-    GetLectureItemsService.Input input = new GetLectureItemsService.Input();
-    input.setDate(date);
+    GetLectureItemsService.Input input = new GetLectureItemsService.Input(date);
 
     // When
     GetLectureItemsService.Output output = getLectureItemsService.getLectures(input);

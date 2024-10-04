@@ -20,6 +20,7 @@ public class GetAppliedLecturesService {
   private final LectureQueryRepository lectureQueryRepository;
 
   @Data
+  @AllArgsConstructor
   public static class Input {
     private Long userId;
   }

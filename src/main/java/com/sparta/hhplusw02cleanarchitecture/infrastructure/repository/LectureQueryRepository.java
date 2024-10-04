@@ -44,8 +44,8 @@ public class LectureQueryRepository {
             lectureInventory.amount
         ))
         .from(lecture)
-        .join(lectureItem).on(lecture.id.eq(lectureItem.id))
-        .join(lectureInventory).on(lectureItem.id.eq(lectureInventory.id))
+        .join(lectureItem).on(lecture.id.eq(lectureItem.lecture_id))
+        .join(lectureInventory).on(lectureItem.id.eq(lectureInventory.item_id))
         .where(lectureItem.date.eq(date))
         .fetch();
   }
@@ -71,10 +71,10 @@ public class LectureQueryRepository {
             lectureInventory.amount
         ))
         .from(lecture)
-        .join(lectureItem).on(lecture.id.eq(lectureItem.id))
-        .join(lectureInventory).on(lectureItem.id.eq(lectureInventory.id))
-        .join(lectureHistory).on(lectureItem.id.eq(lectureHistory.id))
-        .where(lectureHistory.id.eq(userId))
+        .join(lectureItem).on(lecture.id.eq(lectureItem.lecture_id))
+        .join(lectureInventory).on(lectureItem.id.eq(lectureInventory.item_id))
+        .join(lectureHistory).on(lectureItem.id.eq(lectureHistory.item_id))
+        .where(lectureHistory.user_id.eq(userId))
         .fetch();
   }
 
