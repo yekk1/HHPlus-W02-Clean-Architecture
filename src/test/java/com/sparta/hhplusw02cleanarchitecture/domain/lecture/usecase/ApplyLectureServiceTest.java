@@ -85,7 +85,7 @@ class ApplyLectureServiceTest {
   }
 
   @Test
-  @DisplayName("사용자는 특정 userId로 잔여좌석이 남지않은 특강을 신청할 수 없다.")
+  @DisplayName("사용자는 잔여좌석이 남지않은 특강을 신청할 수 없다.")
   @Transactional
   public void whenNoSeatsAvailable_userCannotApply() {
     // Given
@@ -103,6 +103,28 @@ class ApplyLectureServiceTest {
       applyLectureService.applyLecture(input);
     });
     assertThat("No available seats").isEqualTo(exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("사용자는 이미 신청한 특강을 신청할 수 없다.")
+  @Transactional
+  public void whenAreadyAppliedSeat_userCannotApplyAgain() {
+    // given
+    ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+        .userId(1L)
+        .lectureId(2L)
+        .itemId(3L)
+        .inventoryId(3L)
+        .build();
+
+    when(lectureQueryRepository.findLectureInfosByInventoryId(input.getInventoryId())).thenReturn(30);
+    when(lectureQueryRepository.getByUserIdAndLectureId(input.getUserId(), input.getItemId())).thenReturn(true);
+
+    // when & then
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+      applyLectureService.applyLecture(input);
+    });
+    assertThat("이미 신청한 특강입니다.").isEqualTo(exception.getMessage());
   }
 
   @Test
