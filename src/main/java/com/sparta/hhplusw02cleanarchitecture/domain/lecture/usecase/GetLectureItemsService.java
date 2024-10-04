@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class GetLectureItemsService {
   private final LectureQueryRepository lectureQueryRepository;
   @Data
+  @AllArgsConstructor
   public static class Input{
     private LocalDate date;
   }

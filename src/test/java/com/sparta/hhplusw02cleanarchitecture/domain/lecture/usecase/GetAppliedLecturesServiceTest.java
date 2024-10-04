@@ -41,8 +41,7 @@ class GetAppliedLecturesServiceTest {
     );
     when(lectureQueryRepository.findLectureInfosByUserId(userId)).thenReturn(lectureInfos);
 
-    GetAppliedLecturesService.Input input = new GetAppliedLecturesService.Input();
-    input.setUserId(userId);
+    GetAppliedLecturesService.Input input = new GetAppliedLecturesService.Input(userId);
 
     // When
     GetAppliedLecturesService.Output output = getAppliedLecturesService.getAppliedLectures(input);
