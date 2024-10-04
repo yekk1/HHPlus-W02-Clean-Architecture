@@ -1,5 +1,6 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
+import com.sparta.hhplusw02cleanarchitecture.common.InputValidator;
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import java.time.LocalDate;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GetLectureItemsService {
   private final LectureQueryRepository lectureQueryRepository;
+  private final InputValidator inputValidator;
+
   @Data
   @AllArgsConstructor
   public static class Input{
@@ -30,8 +33,7 @@ public class GetLectureItemsService {
   }
 
   public Output getLectures (Input input){
-    //TODO:
-    // 1. validation check
+    inputValidator.getLectureItemsServiceInputValidator(input);
 
     List<LectureInfo> lectureInfos = lectureQueryRepository.findLectureInfosByDate(input.getDate());
     return new Output(lectureInfos);
