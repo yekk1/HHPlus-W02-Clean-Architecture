@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,7 +69,7 @@ public class LectureController {
    * - 특강의 정원은 30명으로 고정이며, 사용자는 각 특강에 신청하기전 목록을 조회해볼 수 있어야 합니다.
    */
   @GetMapping("/lectures")
-  public ApiResponse<List<GetLectureListResponse>> getLectures (@PathVariable LocalDate date){
+  public ApiResponse<List<GetLectureListResponse>> getLectures (@RequestParam LocalDate date){
     log.debug("LectureController#getLectures called.");
     log.debug("date={}", date);
 
@@ -91,7 +92,7 @@ public class LectureController {
    * - 각 항목은 특강 ID 및 이름, 강연자 정보를 담고 있어야 합니다.
    * @param userId 조회할 유저 ID
    */
-  @GetMapping("/{id}")
+  @GetMapping("/{userId}")
   public ApiResponse<List<GetLectureListResponse>> getCompletedLectures (@PathVariable Long userId){
     log.debug("LectureController#getCompletedLectures called.");
     log.debug("userId={}", userId);
