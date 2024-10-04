@@ -1,8 +1,13 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import com.sparta.hhplusw02cleanarchitecture.common.InputException;
+import com.sparta.hhplusw02cleanarchitecture.common.InputValidator;
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import java.time.LocalDate;
@@ -18,6 +23,8 @@ class GetAppliedLecturesServiceTest {
 
   @Mock
   private LectureQueryRepository lectureQueryRepository;
+  @Mock
+  private InputValidator inputValidator;
 
   @InjectMocks
   private GetAppliedLecturesService getAppliedLecturesService;
@@ -50,4 +57,20 @@ class GetAppliedLecturesServiceTest {
     assertThat(output.getList()).hasSize(3);
   }
 
+  @Test
+  @DisplayName("입력된 사용자 id가 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidUserId_Then_InputException() {
+    // given
+    Long invalidUserId = null; // 유효하지 않은 날짜
+    GetAppliedLecturesService.Input input = new GetAppliedLecturesService.Input(invalidUserId);
+    doThrow(new InputException("유효하지 않은 사용자 ID입니다."))
+        .when(inputValidator).getAppliedLectureServiceInputValidator(input);
+
+    //  when & then
+    InputException exception = assertThrows(InputException.class, () -> {
+      getAppliedLecturesService.getAppliedLectures(input);
+    }); //예외발생 확인
+
+    assertEquals("유효하지 않은 사용자 ID입니다.", exception.getMessage()); // 메시지 확인
+  }
 }

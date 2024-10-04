@@ -1,8 +1,13 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import com.sparta.hhplusw02cleanarchitecture.common.InputException;
+import com.sparta.hhplusw02cleanarchitecture.common.InputValidator;
 import com.sparta.hhplusw02cleanarchitecture.domain.lecture.LectureInfo;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
 import java.time.LocalDate;
@@ -18,7 +23,8 @@ import org.mockito.MockitoAnnotations;
 class GetLectureItemsServiceTest {
   @Mock
   private LectureQueryRepository lectureQueryRepository;
-
+  @Mock
+  private InputValidator inputValidator;
   @InjectMocks
   private GetLectureItemsService getLectureItemsService;
 
@@ -46,4 +52,22 @@ class GetLectureItemsServiceTest {
     // Then
     assertThat(output.getList()).hasSize(2);
   }
+
+  @Test
+  @DisplayName("입력된 날짜가 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidDate_Then_InputException() {
+    // given
+    LocalDate invalidDate = null; // 유효하지 않은 날짜
+    GetLectureItemsService.Input input = new GetLectureItemsService.Input(invalidDate);
+    doThrow(new InputException("유효하지 않은 날짜입니다."))
+        .when(inputValidator).getLectureItemsServiceInputValidator(input);
+
+    //  when & then
+    InputException exception = assertThrows(InputException.class, () -> {
+      getLectureItemsService.getLectures(input);
+    }); //예외발생 확인
+
+    assertEquals("유효하지 않은 날짜입니다.", exception.getMessage()); // 메시지 확인
+  }
+
 }

@@ -1,10 +1,14 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import com.sparta.hhplusw02cleanarchitecture.common.InputException;
+import com.sparta.hhplusw02cleanarchitecture.common.InputValidator;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureHistoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureInventoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
@@ -25,7 +29,8 @@ class ApplyLectureServiceTest {
 
   @Mock
   private LectureHistoryRepositoryJpaImpl lectureHistoryRepository;
-
+  @Mock
+  private InputValidator inputValidator;
   @Mock
   private LectureQueryRepository lectureQueryRepository;
 
@@ -98,5 +103,108 @@ class ApplyLectureServiceTest {
       applyLectureService.applyLecture(input);
     });
     assertThat("No available seats").isEqualTo(exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("input이 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidData_Then_InputException() {
+    // given
+    ApplyLectureService.Input input = null;
+
+    doThrow(new InputException("입력 값이 null일 수 없습니다."))
+        .when(inputValidator).applyLectureServiceInputValidator(input);
+    // when & then
+    Exception exception = assertThrows(InputException.class, () -> {
+      inputValidator.applyLectureServiceInputValidator(input);
+    });
+    assertEquals("입력 값이 null일 수 없습니다.", exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("입력된 사용자 id가 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidUserId_Then_InputException() {
+    // given
+    ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+        .userId(-1L)
+        .lectureId(1L)
+        .itemId(1L)
+        .inventoryId(1L)
+        .amount(1)
+        .build();
+
+    doThrow(new InputException("유효하지 않은 사용자 ID입니다."))
+        .when(inputValidator).applyLectureServiceInputValidator(input);
+
+    //when & then
+    Exception exception = assertThrows(InputException.class, () -> {
+      inputValidator.applyLectureServiceInputValidator(input);
+    });
+    assertEquals("유효하지 않은 사용자 ID입니다.", exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("입력된 특강 id가 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidLectureId_Then_InputException() {
+    // when
+    ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+        .userId(1L)
+        .lectureId(-1L)
+        .itemId(1L)
+        .inventoryId(1L)
+        .amount(1)
+        .build();
+
+    doThrow(new InputException("유효하지 않은 특강 ID입니다."))
+        .when(inputValidator).applyLectureServiceInputValidator(input);
+
+    // when & then
+    Exception exception = assertThrows(InputException.class, () -> {
+      inputValidator.applyLectureServiceInputValidator(input);
+    });
+    assertEquals("유효하지 않은 특강 ID입니다.", exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("입력된 특강 목록 id가 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidItemId_Then_InputException() {
+    // given
+    ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+        .userId(1L)
+        .lectureId(1L)
+        .itemId(-1L)
+        .inventoryId(1L)
+        .amount(1)
+        .build();
+
+    doThrow(new InputException("유효하지 않은 특강 목록 ID입니다."))
+        .when(inputValidator).applyLectureServiceInputValidator(input);
+
+    // when & then
+    Exception exception = assertThrows(InputException.class, () -> {
+      inputValidator.applyLectureServiceInputValidator(input);
+    });
+    assertEquals("유효하지 않은 특강 목록 ID입니다.", exception.getMessage());
+  }
+
+  @Test
+  @DisplayName("입력된 특강 여석 id가 유효하지 않으면 예외가 발생한다.")
+  public void intputInvalidIventoryId_Then_InputException() {
+    // given
+    ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+        .userId(1L)
+        .lectureId(1L)
+        .itemId(1L)
+        .inventoryId(-1L)
+        .amount(1)
+        .build();
+
+    doThrow(new InputException("유효하지 않은 특강 여석 ID입니다."))
+        .when(inputValidator).applyLectureServiceInputValidator(input);
+
+    // when & then
+    Exception exception = assertThrows(InputException.class, () -> {
+      inputValidator.applyLectureServiceInputValidator(input);
+    });
+    assertEquals("유효하지 않은 특강 여석 ID입니다.", exception.getMessage());
   }
 }

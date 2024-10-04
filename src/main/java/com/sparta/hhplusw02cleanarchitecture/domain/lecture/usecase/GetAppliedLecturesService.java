@@ -33,7 +33,7 @@ public class GetAppliedLecturesService {
   }
   public Output getAppliedLectures (Input input){
 
-    inputValidator.getAppliedLectureService(input);
+    inputValidator.getAppliedLectureServiceInputValidator(input);
 
     List<LectureInfo> lectureInfos = lectureQueryRepository.findLectureInfosByUserId(input.getUserId());
     return new Output(lectureInfos);

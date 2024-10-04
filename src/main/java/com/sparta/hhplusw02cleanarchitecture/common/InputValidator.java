@@ -26,7 +26,7 @@ public class InputValidator {
     if (Objects.isNull(input.getDate())) throw new InputException("유효하지 않은 날짜입니다.");
   }
 
-  public void getAppliedLectureService(GetAppliedLecturesService.Input input) {
+  public void getAppliedLectureServiceInputValidator(GetAppliedLecturesService.Input input) {
     if (input == null) throw new InputException("입력 값이 null일 수 없습니다.");
     if (input.getUserId() == null || input.getUserId() <= 0) throw new InputException("유효하지 않은 사용자 ID입니다.");
   }
