@@ -1,5 +1,6 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
+import com.sparta.hhplusw02cleanarchitecture.common.InputValidator;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureHistoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.domain.entity.LectureInventoryEntity;
 import com.sparta.hhplusw02cleanarchitecture.infrastructure.repository.LectureQueryRepository;
@@ -25,6 +26,7 @@ public class ApplyLectureService {
   private final LectureInventoryRepositoryJpaImpl lectureInventoryRepository;
   private final LectureHistoryRepositoryJpaImpl lectureHistoryRepository;
   private final LectureQueryRepository lectureQueryRepository;
+  private final InputValidator inputValidator;
 
   @Data
   @Builder
@@ -76,6 +78,8 @@ public class ApplyLectureService {
 
   @Transactional
   public Output applyLecture(Input input) {
+
+    inputValidator.applyLectureServiceInputValidator(input);
 
     LectureHistoryEntity lectureHistory;
     LectureInventoryEntity lectureInventory;
