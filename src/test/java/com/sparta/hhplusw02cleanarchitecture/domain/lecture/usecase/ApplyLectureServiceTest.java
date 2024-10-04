@@ -1,6 +1,7 @@
 package com.sparta.hhplusw02cleanarchitecture.domain.lecture.usecase;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -76,5 +77,26 @@ class ApplyLectureServiceTest {
     assertThat(output.getAmount()).isEqualTo(9);
 
     assertThat(output.getHistoryId()).isEqualTo(20L);
+  }
+
+  @Test
+  @DisplayName("사용자는 특정 userId로 잔여좌석이 남지않은 특강을 신청할 수 없다.")
+  @Transactional
+  public void whenNoSeatsAvailable_userCannotApply() {
+    // Given
+    ApplyLectureService.Input input = ApplyLectureService.Input.builder()
+        .userId(1L)
+        .lectureId(2L)
+        .itemId(3L)
+        .inventoryId(3L)
+        .build();
+
+    when(lectureQueryRepository.findLectureInfosByInventoryId(input.getInventoryId())).thenReturn(0);
+
+    // when & then
+    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+      applyLectureService.applyLecture(input);
+    });
+    assertThat("No available seats").isEqualTo(exception.getMessage());
   }
 }
