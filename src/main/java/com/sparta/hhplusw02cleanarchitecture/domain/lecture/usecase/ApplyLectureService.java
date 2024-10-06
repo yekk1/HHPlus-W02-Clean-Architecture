@@ -84,17 +84,17 @@ public class ApplyLectureService {
     LectureHistoryEntity lectureHistory;
     LectureInventoryEntity lectureInventory;
 
-    // 1. 잔여 좌석 확인 및 업데이트
-    input.setAmount(
-        lectureQueryRepository.findLectureInfosByInventoryId(input.getInventoryId())
-    );
-    input.enroll();
-
-    // 2. 중복 신청 확인
+    // 2. 중복 신청 확인 & HISTORY LOCK
     if (lectureQueryRepository.getByUserIdAndLectureId(input.getUserId(),
         input.getItemId())) {
       throw new IllegalStateException("이미 신청한 특강입니다.");
     }
+
+    // 1. 잔여 좌석 확인 및 업데이트 & INVENTORY LOCK
+    input.setAmount(
+        lectureQueryRepository.findLectureInfosByInventoryId(input.getInventoryId())
+    );
+    input.enroll();
 
     // 3. 잔여 좌석 테이블에 업데이트
     lectureInventory = lectureInventoryRepository.updateAmount(

@@ -122,7 +122,7 @@ public class ApplyLectureServiceIntegrationTest {
     int numberOfApplications = 5; //신청횟수
     ExecutorService executorService = Executors.newFixedThreadPool(numberOfApplications);
     CountDownLatch latch = new CountDownLatch(numberOfApplications);
-
+//    Thread.sleep(3000);
     for (int i = 0; i < numberOfApplications; i++) {
       executorService.execute(() -> {
         ApplyLectureService.Input input = ApplyLectureService.Input.builder()
@@ -136,7 +136,7 @@ public class ApplyLectureServiceIntegrationTest {
         } catch (IllegalStateException e) {
           System.err.println(e);
         } catch (Exception e) {
-          e.printStackTrace();
+          System.err.println(e);
         } finally {
           latch.countDown();
         }
